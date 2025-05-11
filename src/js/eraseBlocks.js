@@ -87,15 +87,15 @@ function eraseLine(lineNum) {
     eraseBlocks.forEach((block) => {
       placed = 0; 
       skipped = 0;
-      for (a = 0; a < blockDataHeight; a++) {
+      for (a = blockDataHeight - 1; a >= 0; a--) {
         if (newBlockData[a][block.x] >= 0) {
-          newBlockData[placed++][block.x] = newBlockData[a][block.x];
+          newBlockData[blockDataHeight - 1 - placed++][block.x] = newBlockData[a][block.x];
         } else {
           skipped++;
         }
       }
-      for(j = 1; j <= skipped; j++) {
-        newBlockData[blockDataHeight - j][block.x] = -1;
+      for(j = 0; j < skipped; j++) {
+        newBlockData[j][block.x] = -1;
       }
     });
     update_blockData(newBlockData);

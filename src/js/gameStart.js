@@ -1,6 +1,6 @@
 ﻿let scoreTotal = 0;
 let isGameActive = false;
-let fallingBlock = [[1],[1]];
+let fallingBlock = [[]];
 let fallingBlockPos = {x: 0, y: 0};
 
 window.addEventListener("load", gameStart);
@@ -20,6 +20,7 @@ function gameStart() {
       newBlockData[a].push(-1);
     }
   }
+  generateFallingBlock();
   update_blockData(newBlockData);
   document.body.addEventListener("keydown", keyEvent);
   // generateFallingBlock();
@@ -72,6 +73,8 @@ function faiingBlockMove(move) {
       for (let x = 0; x < blockShape.x; x++) {
         if (fallingBlockPosNext.y + y < 0) {
           continue;
+        } else if (fallingBlock[y][x] == -1) {
+          continue;
         } else if (currentBlockData[fallingBlockPosNext.y + y][fallingBlockPosNext.x + x] >= 0) {
           console.log(`Block is already exists at (x: ${fallingBlockPosNext.x + x}, y: ${fallingBlockPosNext.y + y})`);
           updateFallingBlockFlag = false;
@@ -96,7 +99,9 @@ function placeFallingBlock() {
   let newBlockData = get_blockData();
   for (let a = 0; a < blockShape.y; a++) {
     for (let b = 0; b < blockShape.x; b++) {
-      if (fallingBlockPos.x + b < 0 || fallingBlockPos.x + b >= blockDataWidth) {
+      if (fallingBlock[a][b] == -1) {
+        continue;
+      } else if (fallingBlockPos.x + b < 0 || fallingBlockPos.x + b >= blockDataWidth) {
         console.error(`Failed to place the falling block`);
         console.error(`Reason: Block will be placed x-axis out of board`);
         gameover();
@@ -118,7 +123,19 @@ function placeFallingBlock() {
 }
 
 function generateFallingBlock() {
-  fallingBlockPos = {x: 0, y: -3};
+  let blockPattern = blockPatterns[parseInt(Math.random() * blockPatterns.length)];
+  fallingBlock = [];
+  for (let a = 0; a < blockPattern.length; a++) {
+    fallingBlock.push([]);
+    for (let b = 0; b < blockPattern[a].length; b++) {
+      if (blockPattern[a][b]) {
+        fallingBlock[a].push(parseInt(Math.random() * blockImages.length));
+      } else {
+        fallingBlock[a].push(-1);
+      }
+    }
+  }
+  fallingBlockPos = {x: 0, y: (-1) * blockPattern.length};
 }
 
 function drawGameScreen() {
@@ -126,12 +143,14 @@ function drawGameScreen() {
   gameScreenCanvasContext.clearRect(0, 0, gameScreenCanvasDOM.width, gameScreenCanvasDOM.height);
   for (let a = 0; a < fallingBlock.length; a++) {
     for (let b = 0; b < fallingBlock[a].length; b++) {
-      gameScreenCanvasContext.drawImage(
-        blockImages[fallingBlock[a][b]],
-        blockImageSize * b + blockImageSize * fallingBlockPos.x, 
-        blockImageSize * a + blockImageSize * fallingBlockPos.y,
-        blockImageSize, blockImageSize
-      );
+      if (fallingBlock[a][b] >= 0) {
+        gameScreenCanvasContext.drawImage(
+          blockImages[fallingBlock[a][b]],
+          blockImageSize * b + blockImageSize * fallingBlockPos.x, 
+          blockImageSize * a + blockImageSize * fallingBlockPos.y,
+          blockImageSize, blockImageSize
+        );
+      }
     }
   }
   for (let i = 0; i < blockDataHeight; i++) {
