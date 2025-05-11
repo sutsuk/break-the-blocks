@@ -2,7 +2,6 @@ const scoresPerBlock = 1;
 const scoreComboBonus = 0.1;
 const eraseThreshold = 4;
 const gameoverThreshold = blockDataHeight - 1;
-let scoreTotal = 0;
 
 function search_erasableLine() {
   let j; let erasedLines = 0;
@@ -89,6 +88,3 @@ function erase_line(lineNum) {
   search_erasableLine();
 }
 
-function gameover() {
-  console.log("ゲームオーバー");
-}

@@ -1,8 +1,8 @@
 const blockImageNames = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg", "7.jpg", "8.jpg", "9.jpg"];
 const blockImageSize = 50;
-const blockDataHeight = 3;
-const blockDataWidth = 3;
-let blockData = [[0, 1, 2], [3, 4, 5], [6, 7, 8]];
+const blockDataHeight = 9;
+const blockDataWidth = 6;
+let blockData = [];
 let gameScreenCanvasDOM = null;
 let gameScreenCanvasContext = null;
 let isAbleInput = true;
@@ -10,7 +10,7 @@ let justUpdate = false;
 let blockImages = [];
 for (let a = 0; a < blockImageNames.length; a++) {
   blockImages.push(new Image());
-  blockImages[a].src = `/break-the-blocks/src/images/${blockImageNames[a]}`
+  blockImages[a].src = `/break-the-blocks/src/images/${blockImageNames[a]}`;
 }
 
 function get_isAbleInput() {
@@ -52,7 +52,7 @@ function get_blockData() {
 function update_blockData(newBlockData){
     if(is_good_blockData(newBlockData)){
         blockData.splice(0,blockDataHeight)
-        console.log("neBlockData = " + newBlockData)
+        console.log("newBlockData = " + newBlockData)
         newBlockData.forEach((line) => {
             console.log("line = " + line)
             blockData.push(line)
