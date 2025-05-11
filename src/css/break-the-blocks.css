@@ -8,8 +8,6 @@ body {
   text-align: center;
 }
 #game-screen-canvas {
-  width: 300px;
-  height: 700px;
   margin: 0px auto;
   background-color: rgb(0 255 0);
 }

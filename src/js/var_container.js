@@ -1,9 +1,17 @@
-let gameScreenCanvasDOM = null;
-let isAbleInput = true;
-let justUpdate = false;
-const blockData = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+const blockImageNames = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg", "7.jpg", "8.jpg", "9.jpg"];
+const blockImageSize = 50;
 const blockDataHeight = 3;
 const blockDataWidth = 3;
+let blockData = [[0, 1, 2], [3, 4, 5], [6, 7, 8]];
+let gameScreenCanvasDOM = null;
+let gameScreenCanvasContext = null;
+let isAbleInput = true;
+let justUpdate = false;
+let blockImages = [];
+for (let a = 0; a < blockImageNames.length; a++) {
+  blockImages.push(new Image());
+  blockImages[a].src = `/break-the-blocks/src/images/${blockImageNames[a]}`
+}
 
 function get_isAbleInput() {
     return isAbleInput;
@@ -37,7 +45,7 @@ function is_good_blockData(newBlockData){
     return is_good_data
 }
 
-function get_blockdData() {
+function get_blockData() {
     return blockData;
 }
 
