@@ -1,4 +1,4 @@
-const blockImageNames = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg", "7.jpg", "8.jpg", "9.jpg"];
+﻿const blockImageNames = ["1.jpg", "2.jpg", "3.jpg", "4.jpg", "5.jpg", "6.jpg", "7.jpg", "8.jpg", "9.jpg"];
 const blockImageSize = 50;
 const blockDataHeight = 9;
 const blockDataWidth = 6;
@@ -51,12 +51,12 @@ function get_blockData() {
 
 function update_blockData(newBlockData){
     if(is_good_blockData(newBlockData)){
-        blockData.splice(0,blockDataHeight)
+        blockData = []
         console.log("newBlockData = " + newBlockData)
         newBlockData.forEach((line) => {
             console.log("line = " + line)
             blockData.push(line)
-          })
+        })
     } else{
         console.log("update_blockdataに代入された値が正しくありません")
     }
