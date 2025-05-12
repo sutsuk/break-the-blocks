@@ -1,6 +1,6 @@
 # break-the-blocks
 
-You can break the falling the block by filling the horizonal line.
+You can break the falling the block by filling the horizontal line.
 
 ## Test play available on 
 
